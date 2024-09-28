@@ -1,3 +1,5 @@
+import { TextUI } from "../components/textUI.js";
+
 export const meta = () => {
   return [
     { title: "New Remix SPA" },
@@ -25,6 +27,7 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <TextUI />
     </div>
   );
 }
