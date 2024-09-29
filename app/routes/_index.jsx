@@ -1,4 +1,4 @@
-import { TextUI } from "../components/textUI.js";
+import { TextUI } from "../components/textUI.jsx";
 
 export const meta = () => {
   return [
