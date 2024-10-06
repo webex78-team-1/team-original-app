@@ -1,4 +1,5 @@
 import { TextUI } from "../components/textUI.jsx";
+import { GoogleSignIn } from "../components/SignIn.jsx";
 
 export const meta = () => {
   return [
@@ -27,6 +28,7 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <GoogleSignIn />
       <TextUI />
     </div>
   );
