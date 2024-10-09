@@ -1,4 +1,5 @@
 import { TextUI } from "../components/textUI.jsx";
+import Sign from "../components/Sign.jsx";
 
 export const meta = () => {
   return [
@@ -27,6 +28,7 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <Sign />
       <TextUI />
     </div>
   );
