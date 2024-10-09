@@ -1,24 +1,24 @@
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase.js";
-import { useAuthState } from "react-firebase-hooks/auth";
+// import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function Sign() {
-  //ユーザーのログイン状態を管理する変数の宣言
-  const [user] = useAuthState(auth);
+// export default function Sign() {
+//   //ユーザーのログイン状態を管理する変数の宣言
+//   const [user] = useAuthState(auth);
 
-  return (
-    <div>
-      {user ? (
-        <div>
-          <UserInfo />
-          <SignOutButton />
-        </div>
-      ) : (
-        <SignInButton />
-      )}
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       {user ? (
+//         <div>
+//           <UserInfo />
+//           <SignOutButton />
+//         </div>
+//       ) : (
+//         <SignInButton />
+//       )}
+//     </div>
+//   );
+// }
 
 //サインインするボタン
 function SignInButton() {
@@ -44,3 +44,5 @@ function UserInfo() {
     </div>
   );
 }
+
+export { UserInfo, SignInButton, SignOutButton };
