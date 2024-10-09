@@ -1,4 +1,5 @@
-import { TextUI } from "../components/textUI.jsx";
+import { CustomAPICallComponent } from "../components/Recommend.jsx";
+import { GoogleMapComponent } from "../components/GoogleMap.jsx";
 import { UserInfo, SignOutButton, SignInButton } from "../components/Sign.jsx";
 import { auth } from "../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,7 +16,7 @@ export default function Index() {
   const [user] = useAuthState(auth);
   return (
     // <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-    //   <h1>Welcome to Remix (SPA Mode)</h1>
+    //   <h1>KOTABI ~孤旅~</h1>
     //   <ul>
     //     <li>
     //       <a
@@ -33,14 +34,14 @@ export default function Index() {
     //     </li>
     //   </ul>
     //   <Sign />
-    //   <TextUI />
     // </div>
-    <div>
+    <div >
       {user ? (
         <div>
           <UserInfo />
           <SignOutButton />
-          <TextUI />
+          <CustomAPICallComponent />
+          <GoogleMapComponent />
         </div>
       ) : (
         <SignInButton />
