@@ -44,3 +44,5 @@ function UserInfo() {
     </div>
   );
 }
+
+export { SignInButton, SignOutButton, UserInfo };
