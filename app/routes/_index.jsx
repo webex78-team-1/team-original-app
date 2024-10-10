@@ -12,6 +12,8 @@ export const meta = () => {
 };
 
 export default function Index() {
+  //ログイン状態を管理する変数の宣言
+  const [user] = useAuthState(auth);
   return (
     // <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
     //   <h1>KOTABI ~孤旅~</h1>
