@@ -1,8 +1,8 @@
-import { CustomAPICallComponent } from "../components/Recommend.jsx";
-import { GoogleMapComponent } from "../components/GoogleMap.jsx";
-import { UserInfo, SignOutButton, SignInButton } from "../components/Sign.jsx";
+// import { CustomAPICallComponent } from "../components/Recommend.jsx";
+// import { GoogleMapComponent } from "../components/GoogleMap.jsx";
+import { UserInfo } from "../components/Sign.jsx";
 import { auth } from "../firebase.js";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect, useState } from "react";
 
 export const meta = () => {
   return [
@@ -11,9 +11,35 @@ export const meta = () => {
   ];
 };
 
+export async function loader() {
+  return null;
+}
+
 export default function Index() {
-  //ログイン状態を管理する変数の宣言
-  const [user] = useAuthState(auth);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    import("firebase/auth").then(({ onAuthStateChanged }) => {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+          setUser(currentUser);
+        } else {
+          window.location.href = "/login";
+        }
+      });
+      return () => unsubscribe();
+    });
+  }, []);
+
+  if (!user) {
+    return <p>ロード中...</p>; // ユーザー情報がロードされるまでの表示
+  }
+
+  const handleSignOut = async () => {
+    await auth.signOut(); // サインアウト処理
+    window.location.href = "/signin"; // サインアウト後にログイン画面へリダイレクト
+  };
+
   return (
     // <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
     //   <h1>KOTABI ~孤旅~</h1>
@@ -36,16 +62,11 @@ export default function Index() {
     //   <Sign />
     // </div>
     <div>
-      {user ? (
-        <div>
-          <UserInfo />
-          <SignOutButton />
-          <CustomAPICallComponent />
-          <GoogleMapComponent />
-        </div>
-      ) : (
-        <SignInButton />
-      )}
+      <h1>KOTABI ~孤旅~</h1>
+      <h2>My Page</h2>
+
+      <UserInfo />
+      <button onClick={handleSignOut}>サインアウト</button>
     </div>
   );
 }
