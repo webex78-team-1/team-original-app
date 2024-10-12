@@ -1,24 +1,25 @@
-import { auth, provider } from "../firebase.js"; // Firebaseの設定をインポート
-import { signInWithPopup } from "firebase/auth"; // ポップアップでログインするためのメソッドをインポート
-import { useState } from "react";
+import { SignInButton } from "../components/Sign.jsx";
+import { auth } from "../firebase.js";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect } from "react";
+import { useNavigate } from "@remix-run/react";
 
 export default function SignIn() {
-  const [error, setError] = useState("");
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
 
-  const handleGoogleLogin = async () => {
-    try {
-      await signInWithPopup(auth, provider); // Googleでログイン
-      window.location.href = "/"; // ログイン成功後にマイページへリダイレクト
-    } catch (err) {
-      setError(err.message); // エラー処理
+  // ユーザーがログインしていればマイページにリダイレクト
+  useEffect(() => {
+    if (user) {
+      navigate("/"); // ログイン後はマイページにリダイレクト
     }
-  };
+  }, [user, navigate]);
 
   return (
-    <div>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>KOTABI ~孤旅~</h1>
-      <button onClick={handleGoogleLogin}>Googleでログイン</button>
-      {error && <p>{error}</p>} {/* エラーメッセージの表示 */}
+      <h2>ログインしてください</h2>
+      <SignInButton />
     </div>
   );
 }
