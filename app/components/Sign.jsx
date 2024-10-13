@@ -28,16 +28,19 @@ function SignInButton() {
   };
 
   return (
-    <button
-      style={{
-        borderRadius: "20px",
-        width: "10em",
-        height: "3em",
-      }}
-      onClick={signInWithGoogle}
-    >
-      Googleでサインイン
-    </button>
+    <div style={{ textAlign: "center" }}>
+      <button
+        style={{
+          margin: "20px",
+          borderRadius: "20px",
+          width: "12em",
+          height: "3em",
+        }}
+        onClick={signInWithGoogle}
+      >
+        Googleでサインイン
+      </button>
+    </div>
   );
 }
 
@@ -63,6 +66,7 @@ function UserInfo() {
     <div>
       <img
         style={{
+          padding: "20px",
           borderRadius: "50%",
         }}
         src={auth.currentUser.photoURL}

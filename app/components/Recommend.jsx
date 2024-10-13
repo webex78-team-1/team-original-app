@@ -65,99 +65,137 @@ export const CustomAPICallComponent = () => {
 
   return (
     <div>
-      <div
-        style={{
-          margin: "20px 50% 50px 40px ",
-          padding: "5px 0 20px 20px",
-          backgroundColor: "rgb(250, 100, 0)",
-          fontFamily: "meiryo",
-          borderRadius: "25px",
-        }}
-      >
-        <h2>条件入力</h2>
-        <div>地域</div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div
           style={{
-            padding: "10px 10px 20px ",
+            margin: "20px 0 50px 40px ",
+            padding: "5px 0 20px 20px",
+            width: "50%",
+            backgroundColor: "rgb(250, 100, 0)",
+            fontFamily: "meiryo",
+            borderTopLeftRadius: "30px",
+            borderTopRightRadius: "80px",
+            borderBottomRightRadius: "30px",
+            borderBottomLeftRadius: "80px",
           }}
         >
-          <input
-            type="text"
-            value={location}
-            onChange={(e) => {
-              setLocation(e.target.value);
+          <h2>条件入力</h2>
+          <div style={{ fontSize: "20px" }}>
+            <div>地域</div>
+            <div
+              style={{
+                padding: "10px 10px 20px ",
+              }}
+            >
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
+              />
+            </div>
+            <div>カテゴリ</div>
+            <div
+              style={{
+                padding: "10px 10px 20px ",
+                width: "60%",
+              }}
+            >
+              <Select
+                options={category}
+                onChange={setSelectedCategory} // 選択された値をステートにセット
+              />
+            </div>
+            <div>屋内/屋外</div>
+            <div
+              style={{
+                padding: "10px 10px 20px ",
+                width: "60%",
+              }}
+            >
+              <Select
+                options={inout}
+                onChange={setSelectedInout} // 選択された値をステートにセット
+              />
+            </div>
+          </div>
+          {/* ボタンを押してAPIリクエスト送信 */}
+          <div
+            style={{
+              paddingTop: "20px",
             }}
-          />
-        </div>
-        <div>カテゴリ</div>
-        <div
-          style={{
-            padding: "10px 10px 20px ",
-            width: "60%",
-          }}
-        >
-          <Select
-            options={category}
-            onChange={setSelectedCategory} // 選択された値をステートにセット
-          />
-        </div>
-        <div>屋内/屋外</div>
-        <div
-          style={{
-            padding: "10px 10px 20px ",
-            width: "60%",
-          }}
-        >
-          <Select
-            options={inout}
-            onChange={setSelectedInout} // 選択された値をステートにセット
-          />
-        </div>
-        {/* ボタンを押してAPIリクエスト送信 */}
-        <div
-          style={{
-            paddingTop: "20px",
-          }}
-        >
-          <button
-            style={{ borderRadius: "20px", width: "5em", height: "3em" }}
-            onClick={handleSubmit}
           >
-            検索
-          </button>
+            <div style={{ textAlign: "center" }}>
+              <button
+                style={{
+                  borderRadius: "20px",
+                  width: "5em",
+                  height: "3em",
+                  fontSize: "20px",
+                }}
+                onClick={handleSubmit}
+              >
+                検索
+              </button>
+            </div>
+          </div>
         </div>
+        <img
+          style={{
+            height: "40%",
+            width: "40%",
+          }}
+          src="https://loosedrawing.com/assets/illustrations/png/1157.png"
+          alt="image1"
+        ></img>
       </div>
 
-      {/* レスポンスの表示 */}
-      <div
-        style={{
-          margin: "20px 50% 50px 40px ",
-          padding: "5px 30px 20px 20px",
-          border: "thick double #32a1ce",
-          borderColor: "rgb(0 220 180)",
-          fontFamily: "meiryo",
-          borderRadius: "25px",
-        }}
-      >
-        <h2>おすすめスポット一覧</h2>
-        {response ? (
-          <ul>
-            {response.information.map((item, index) => (
-              <li key={index}>
-                <strong>スポット名: </strong>
-                {item.spot}
-                <br />
-                <strong>理由: </strong>
-                {item.reason}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>データを取得中...</p>
-        )}
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <img
+          style={{
+            height: "40%",
+            width: "40%",
+          }}
+          src="https://loosedrawing.com/assets/illustrations/png/1043.png"
+          alt="image1"
+        ></img>
+        {/* レスポンスの表示 */}
+        <div
+          style={{
+            margin: "20px 40px 50px 0 ",
+            padding: "5px 30px 20px 20px",
+            width: "50%",
+            border: "thick double #32a1ce",
+            borderColor: "rgb(0 220 180)",
+            fontFamily: "meiryo",
+            borderRadius: "25px",
+            borderTopLeftRadius: "30px",
+            borderTopRightRadius: "80px",
+            borderBottomRightRadius: "30px",
+            borderBottomLeftRadius: "80px",
+          }}
+        >
+          <h2>おすすめスポット一覧</h2>
+          {response ? (
+            <ul>
+              {response.information.map((item, index) => (
+                <li key={index}>
+                  <strong>スポット名: </strong>
+                  {item.spot}
+                  <br />
+                  <strong>理由: </strong>
+                  {item.reason}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>データを取得中...</p>
+          )}
 
-        {/* エラーメッセージの表示 */}
-        {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+          {/* エラーメッセージの表示 */}
+          {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+        </div>
       </div>
     </div>
   );

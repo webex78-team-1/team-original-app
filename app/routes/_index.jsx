@@ -26,6 +26,15 @@ export default function Index() {
         }}
       >
         <h1>KOTABI ~孤旅~</h1>
+        <div
+          style={{
+            padding: "0 0 30px",
+            borderBottom: "0.5rem solid",
+            borderColor: "rgb(350 50 0)",
+          }}
+        >
+          あなたの旅が、あなたの物語になる
+        </div>
         {/*<ul>
          <li>
            <a
@@ -57,7 +66,7 @@ export default function Index() {
             </div>
             <div
               style={{
-                textAlign: "center",
+                textAlign: "right",
               }}
             >
               <SignOutButton />
