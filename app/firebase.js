@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD56QqVCiXi4HIm0ep5AnpCrdEH2bYke98",
@@ -18,7 +19,7 @@ const app = initializeApp(firebaseConfig);
 // Firestoreを読み込み、db(databaseの略)として export
 export const db = getFirestore(app);
 // Authentication関連
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-export { auth, provider };
+export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();
+// Storage関連
+export const storage = getStorage(app);
