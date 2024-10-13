@@ -14,38 +14,61 @@ export const meta = () => {
 export default function Index() {
   //ユーザーのログイン状態を管理する変数の宣言
   const [user] = useAuthState(auth);
+
   return (
-    // <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-    //   <h1>KOTABI ~孤旅~</h1>
-    //   <ul>
-    //     <li>
-    //       <a
-    //         target="_blank"
-    //         href="https://remix.run/guides/spa-mode"
-    //         rel="noreferrer"
-    //       >
-    //         SPA Mode Guide
-    //       </a>
-    //     </li>
-    //     <li>
-    //       <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-    //         Remix Docs
-    //       </a>
-    //     </li>
-    //   </ul>
-    //   <Sign />
-    // </div>
-    <div >
-      {user ? (
-        <div>
-          <UserInfo />
-          <SignOutButton />
-          <CustomAPICallComponent />
-          <GoogleMapComponent />
-        </div>
-      ) : (
-        <SignInButton />
-      )}
-    </div>
+    <>
+      <div
+        style={{
+          fontFamily: "Verdana, Arial, Helvetica, sans-serif",
+          lineHeight: "1.8",
+          textAlign: "center",
+          fontSize: "30px",
+        }}
+      >
+        <h1>KOTABI ~孤旅~</h1>
+        {/*<ul>
+         <li>
+           <a
+             target="_blank"
+             href="https://remix.run/guides/spa-mode"
+             rel="noreferrer"
+           >
+             SPA Mode Guide
+           </a>
+         </li>
+         <li>
+           <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
+             Remix Docs
+           </a>
+         </li>
+       </ul>
+       <Sign />*/}
+      </div>
+      <div>
+        {user ? (
+          <div>
+            <div
+              style={{
+                fontSize: "20px",
+                textAlign: "center",
+              }}
+            >
+              <UserInfo />
+            </div>
+            <div
+              style={{
+                textAlign: "center",
+              }}
+            >
+              <SignOutButton />
+            </div>
+            <CustomAPICallComponent />
+            <GoogleMapComponent />
+          </div>
+        ) : (
+          <SignInButton />
+        )}
+      </div>
+    </>
   );
 }

@@ -27,19 +27,47 @@ function SignInButton() {
     signInWithPopup(auth, provider);
   };
 
-  return <button onClick={signInWithGoogle}>Googleでサインイン</button>;
+  return (
+    <button
+      style={{
+        borderRadius: "20px",
+        width: "10em",
+        height: "3em",
+      }}
+      onClick={signInWithGoogle}
+    >
+      Googleでサインイン
+    </button>
+  );
 }
 
 //サインアウトするボタン
 function SignOutButton() {
-  return <button onClick={() => auth.signOut()}>サインアウト</button>;
+  return (
+    <button
+      style={{
+        borderRadius: "20px",
+        width: "10em",
+        height: "3em",
+      }}
+      onClick={() => auth.signOut()}
+    >
+      サインアウト
+    </button>
+  );
 }
 
 //Googleアカウント名とアイコンの出力
 function UserInfo() {
   return (
     <div>
-      <img src={auth.currentUser.photoURL} alt="アカウント画像" />
+      <img
+        style={{
+          borderRadius: "50%",
+        }}
+        src={auth.currentUser.photoURL}
+        alt="アカウント画像"
+      />
       <p>{auth.currentUser.displayName}</p>
     </div>
   );
