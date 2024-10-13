@@ -3,6 +3,8 @@ import { auth } from "../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 import { useNavigate } from "@remix-run/react";
+import "../styles/style.css";
+import kotabi from "../images/kotabi.png";
 
 export default function SignIn() {
   const [user] = useAuthState(auth);
@@ -16,9 +18,11 @@ export default function SignIn() {
   }, [user, navigate]);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>KOTABI ~孤旅~</h1>
-      <h2>ログインしてください</h2>
+    <div className="signinscreen">
+      <div className="kotabi">
+        <img src={kotabi} alt="kotabi"></img>
+      </div>
+      <h3>あなたの旅が、あなたの物語になる。</h3>
       <SignInButton />
     </div>
   );

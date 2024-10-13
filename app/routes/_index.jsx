@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import kotabi from "../images/kotabi.png";
 
 // export const meta = () => {
 //   return [
@@ -135,8 +136,15 @@ export default function Index() {
       ) : (
         <SignInButton />
       )} */}
-      <SignOutButton />
-      <h1>KOTABI ~孤旅~</h1>
+      <div className="header">
+        <SignOutButton />
+        <img src={kotabi} className="icon" alt="kotabi"></img>
+      </div>
+      <h1
+        style={{ borderBottom: "0.5rem solid", borderColor: "rgb(260,70,0)" }}
+      >
+        KOTABi ~孤旅~
+      </h1>
       <h2>マイページ</h2>
       <UserInfo />
 

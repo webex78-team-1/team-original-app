@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Select from "react-select"; //セレクトボタンのインポート
+import "../styles/style.css";
 
 export const CustomAPICallComponent = () => {
   // 各入力フィールド用のステート
@@ -64,7 +65,7 @@ export const CustomAPICallComponent = () => {
   };
 
   return (
-    <div>
+    <div className="kensaku">
       <h2>条件入力</h2>
       <div>地域</div>
       <input

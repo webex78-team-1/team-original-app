@@ -1,0 +1,68 @@
+.signinbutton {
+  margin: 20px 0 21%;
+  border-radius: 20px;
+  width: 12em;
+  height: 3em;
+}
+
+.signinscreen {
+  background-color: #5ce1e6;
+  text-align: center;
+  font-family: meiryo;
+}
+
+.kotabi {
+  padding-top: 100px;
+  text-align: center;
+}
+.signoutbutton {
+  border-radius: 20px;
+  width: 10em;
+  height: 3em;
+  margin: auto 0 auto 0;
+}
+
+.userinfo {
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.accountimage {
+  border-radius: 50%;
+}
+
+.icon {
+  width: 15%;
+  height: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.kensaku {
+  margin: 20px 0 50px 40px;
+  padding: 5px 0 20px 20px;
+  width: 50%;
+  background-color: rgb(250, 100, 0);
+  font-family: meiryo;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 80px;
+}
+
+.response {
+  margin: 20px 40px 50px 0;
+  padding: 5px 30px 20px 20px;
+  width: 50%;
+  border: thick double #32a1ce;
+  border-color: rgb(0 220 180);
+  font-family: meiryo;
+  border-radius: 25px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 80px;
+}
