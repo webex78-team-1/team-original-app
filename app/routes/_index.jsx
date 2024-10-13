@@ -145,6 +145,9 @@ export default function Index() {
         <li>
           <Link to="/search">最適スポット検索</Link>
         </li>
+        <li>
+          <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
+        </li>
       </ul>
       <h2>マイページ</h2>
       <UserInfo />

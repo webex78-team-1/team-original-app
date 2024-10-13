@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   GoogleMap,
   LoadScript,
@@ -24,6 +24,7 @@ export const SearchMapComponent = () => {
   const [placesList, setPlacesList] = useState([]); // 絞り込んだ場所のリスト
   const [selectedPlace, setSelectedPlace] = useState(null); // 選択された場所の詳細表示用
   const [errorMessage, setErrorMessage] = useState(""); // エラーメッセージ
+  const [loadMap, setLoadMap] = useState(false); // マップの強制再ロード
 
   // フォーム入力の状態管理
   const [location, setLocation] = useState(""); // 地名
@@ -31,6 +32,11 @@ export const SearchMapComponent = () => {
   const [people, setPeople] = useState(""); // 人数（指定なしも可）
   const [budget, setBudget] = useState("すべて"); // 予算（無料、低価格、中価格、高価格、指定なし）
   const [inout, setInout] = useState(""); // 屋内・屋外（指定なしも可）
+
+  // ページ遷移後にマップを強制リロードする
+  useEffect(() => {
+    setLoadMap(true); // マップを表示する
+  }, []); // 初回マウント時のみ実行
 
   // マップがロードされた時に呼び出される
   const onLoad = (mapInstance) => {
@@ -216,47 +222,49 @@ export const SearchMapComponent = () => {
       </ul>
 
       {/* Google Mapsの表示部分 */}
-      <LoadScript
-        googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
-        libraries={["places"]}
-      >
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={defaultCenter}
-          zoom={14}
-          onLoad={onLoad}
+      {loadMap && (
+        <LoadScript
+          googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+          libraries={["places"]}
         >
-          {/* フィルタリングされた場所にマーカーを表示 */}
-          {markers.map((marker, index) => (
-            <Marker
-              key={index}
-              position={marker.position}
-              onClick={() => setSelectedPlace(marker)} // マーカークリック時に詳細表示
-            />
-          ))}
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={defaultCenter}
+            zoom={14}
+            onLoad={onLoad}
+          >
+            {/* フィルタリングされた場所にマーカーを表示 */}
+            {markers.map((marker, index) => (
+              <Marker
+                key={index}
+                position={marker.position}
+                onClick={() => setSelectedPlace(marker)} // マーカークリック時に詳細表示
+              />
+            ))}
 
-          {/* マーカーをクリックした時の詳細表示 */}
-          {selectedPlace && (
-            <InfoWindow
-              position={selectedPlace.position}
-              onCloseClick={() => setSelectedPlace(null)}
-            >
-              <div>
-                <h4>{selectedPlace.name}</h4>
-                <p>住所: {selectedPlace.address}</p>
-                <p>評価: {selectedPlace.rating}</p>
-                <a
-                  href={generateGoogleMapsLink(selectedPlace.placeId)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Google Mapsで表示
-                </a>
-              </div>
-            </InfoWindow>
-          )}
-        </GoogleMap>
-      </LoadScript>
+            {/* マーカーをクリックした時の詳細表示 */}
+            {selectedPlace && (
+              <InfoWindow
+                position={selectedPlace.position}
+                onCloseClick={() => setSelectedPlace(null)}
+              >
+                <div>
+                  <h4>{selectedPlace.name}</h4>
+                  <p>住所: {selectedPlace.address}</p>
+                  <p>評価: {selectedPlace.rating}</p>
+                  <a
+                    href={generateGoogleMapsLink(selectedPlace.placeId)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Google Mapsで表示
+                  </a>
+                </div>
+              </InfoWindow>
+            )}
+          </GoogleMap>
+        </LoadScript>
+      )}
     </>
   );
 };

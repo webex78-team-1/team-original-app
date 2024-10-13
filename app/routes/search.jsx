@@ -12,6 +12,9 @@ export default function SearchMap() {
         <li>
           <Link to="/search">最適スポット検索</Link>
         </li>
+        <li>
+          <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
+        </li>
       </ul>
       <h2>Googleマップを活用した最適スポット検索</h2>
       <SearchMapComponent />
