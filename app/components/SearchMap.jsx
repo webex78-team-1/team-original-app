@@ -146,62 +146,71 @@ export const SearchMapComponent = () => {
     <>
       {/* フィルタ入力フォーム */}
       <form onSubmit={handleSearchSubmit}>
-        <div>
-          <label htmlFor="location">地名: </label>
-          <input
-            id="location"
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="例: 東京駅"
-          />
+        <div className="input">
+          <div>
+            <h2>条件入力</h2>
+            <div className="inputposition">
+              <label htmlFor="location">地名: </label>
+              <input
+                id="location"
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="例: 東京駅"
+              />
+            </div>
+          </div>
+          <div className="inputposition">
+            <label htmlFor="category">カテゴリー: </label>
+            <input
+              id="category"
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              placeholder="例: 和食、遊ぶ、温泉"
+            />
+          </div>
+          <div className="inputposition">
+            <label htmlFor="budget">予算: </label>
+            <select
+              id="budget"
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+            >
+              <option value="すべて">すべて</option>
+              <option value="無料">無料</option>
+              <option value="低価格">低価格（1,000円未満）</option>
+              <option value="中価格">中価格（1,000～10,000円未満）</option>
+              <option value="高価格">高価格（10,000円以上）</option>
+            </select>
+          </div>
+          <div className="inputposition">
+            <label htmlFor="inout">屋内・屋外: </label>
+            <select
+              id="inout"
+              value={inout}
+              onChange={(e) => setInout(e.target.value)}
+            >
+              <option value="">指定なし</option>
+              <option value="屋内">屋内</option>
+              <option value="屋外">屋外</option>
+            </select>
+          </div>
+          <div className="inputposition">
+            <label htmlFor="soloFriendly">一人旅向け: </label>
+            <input
+              type="checkbox"
+              id="soloFriendly"
+              checked={soloFriendly}
+              onChange={(e) => setSoloFriendly(e.target.checked)}
+            />
+          </div>
+          <div className="kensakubuttonposition">
+            <button className="kensakubutton" type="submit">
+              検索
+            </button>
+          </div>
         </div>
-        <div>
-          <label htmlFor="category">カテゴリー: </label>
-          <input
-            id="category"
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="例: 和食、遊ぶ、温泉"
-          />
-        </div>
-        <div>
-          <label htmlFor="budget">予算: </label>
-          <select
-            id="budget"
-            value={budget}
-            onChange={(e) => setBudget(e.target.value)}
-          >
-            <option value="すべて">すべて</option>
-            <option value="無料">無料</option>
-            <option value="低価格">低価格（1,000円未満）</option>
-            <option value="中価格">中価格（1,000～10,000円未満）</option>
-            <option value="高価格">高価格（10,000円以上）</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="inout">屋内・屋外: </label>
-          <select
-            id="inout"
-            value={inout}
-            onChange={(e) => setInout(e.target.value)}
-          >
-            <option value="">指定なし</option>
-            <option value="屋内">屋内</option>
-            <option value="屋外">屋外</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="soloFriendly">一人旅向け: </label>
-          <input
-            type="checkbox"
-            id="soloFriendly"
-            checked={soloFriendly}
-            onChange={(e) => setSoloFriendly(e.target.checked)}
-          />
-        </div>
-        <button type="submit">検索</button>
       </form>
 
       {/* エラーメッセージ表示 */}
