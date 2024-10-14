@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../firebase.js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import "../styles/style.css";
 
 export default function MemoForm({ userId, onMemoSave }) {
   const [date, setDate] = useState("");
@@ -59,42 +60,48 @@ export default function MemoForm({ userId, onMemoSave }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
-      <div>
-        <label>日付: </label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>訪れた場所: </label>
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>メモ内容: </label>
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label>写真:</label>
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={(e) => setImage(e.target.files[0])}
-        />
-      </div>
-      <button type="submit">メモを保存</button>
-    </form>
+    <div className="memo">
+      <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+        <div className="memolabel">
+          <label>日付: </label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+        </div>
+        <div className="memolabel">
+          <label>訪れた場所: </label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
+        </div>
+        <div className="memolabel">
+          <label>メモ内容: </label>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+          />
+        </div>
+        <div className="memolabel">
+          <label>写真:</label>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+        </div>
+        <div className="memokeepposition">
+          <button className="memokeep" type="submit">
+            メモを保存
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

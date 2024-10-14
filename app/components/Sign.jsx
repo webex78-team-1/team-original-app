@@ -1,6 +1,7 @@
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
+import "../styles/style.css";
 
 export default function Sign() {
   //ユーザーのログイン状態を管理する変数の宣言
@@ -27,19 +28,31 @@ function SignInButton() {
     signInWithPopup(auth, provider);
   };
 
-  return <button onClick={signInWithGoogle}>Googleでサインイン</button>;
+  return (
+    <button className="signinbutton" onClick={signInWithGoogle}>
+      Googleでサインイン
+    </button>
+  );
 }
 
 //サインアウトするボタン
 function SignOutButton() {
-  return <button onClick={() => auth.signOut()}>サインアウト</button>;
+  return (
+    <button className="signoutbutton" onClick={() => auth.signOut()}>
+      サインアウト
+    </button>
+  );
 }
 
 //Googleアカウント名とアイコンの出力
 function UserInfo() {
   return (
-    <div>
-      <img src={auth.currentUser.photoURL} alt="アカウント画像" />
+    <div className="userinfo">
+      <img
+        src={auth.currentUser.photoURL}
+        className="accountimage"
+        alt="アカウント画像"
+      />
       <p>{auth.currentUser.displayName}</p>
     </div>
   );

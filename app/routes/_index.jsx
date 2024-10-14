@@ -16,6 +16,9 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import kotabi from "../images/kotabi.png";
+import sea from "../images/sea.png";
+import "../styles/style.css";
 import { Link } from "@remix-run/react";
 
 // export const meta = () => {
@@ -136,9 +139,11 @@ export default function Index() {
       ) : (
         <SignInButton />
       )} */}
-      <SignOutButton />
-      <h1>KOTABI ~孤旅~</h1>
-      <ul>
+    
+      <div className="header">
+        <SignOutButton />
+        <img src={kotabi} className="icon" alt="kotabi"></img>
+         <ul>
         <li>
           <Link to="/">マイページ</Link>
         </li>
@@ -149,44 +154,64 @@ export default function Index() {
           <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
         </li>
       </ul>
-      <h2>マイページ</h2>
-      <UserInfo />
+      </div>
+      <h1
+        style={{
+          borderBottom: "0.5rem solid",
+          borderColor: "rgb(260,70,0)",
+          fontSize: "50px",
+        }}
+      >
+        KOTABi ~孤旅~
+      </h1>
+      <div className="mypagebackground">
+        <div className="toumei">
+          <h2>マイページ</h2>
+          <UserInfo />
 
-      {/* メモフォームの表示。メモ追加後に onMemoSave を呼び出す */}
-      <MemoForm userId={user.uid} onMemoSave={handleMemoSave} />
+          {/* メモフォームの表示。メモ追加後に onMemoSave を呼び出す */}
+          <MemoForm userId={user.uid} onMemoSave={handleMemoSave} />
 
-      {/* 保存されたメモの表示 */}
-      <h2>これまでのメモ</h2>
-      <ul>
-        {memos.map((memo) => (
-          <li key={memo.id}>
-            <strong>日付: </strong>
-            {memo.date}
-            <br />
-            <strong>場所: </strong>
-            {memo.location}
-            <br />
-            <strong>メモ: </strong>
-            {memo.content}
-            <br />
-            {memo.imageUrl && (
-              <>
-                <strong>写真: </strong>
-                <br />
-                <img
-                  src={memo.imageUrl}
-                  alt="メモの画像"
-                  style={{ maxWidth: "200px", maxHeight: "200px" }}
-                />
-                <br />
-              </>
-            )}
-            <button onClick={() => handleDelete(memo.id, memo.imageUrl)}>
-              メモを削除
-            </button>
-          </li>
-        ))}
-      </ul>
+          {/* 保存されたメモの表示 */}
+
+          <div className="memolog">
+            <h2>これまでのメモ</h2>
+            <ul>
+              {memos.map((memo) => (
+                <li key={memo.id}>
+                  <strong>日付: </strong>
+                  {memo.date}
+                  <br className="memolist" />
+                  <strong>場所: </strong>
+                  {memo.location}
+                  <br className="memolist" />
+                  <strong>メモ: </strong>
+                  {memo.content}
+                  <br className="memolist" />
+                  {memo.imageUrl && (
+                    <div className="memolist">
+                      <strong>写真: </strong>
+                      <br />
+                      <img
+                        src={memo.imageUrl}
+                        alt="メモの画像"
+                        style={{ maxWidth: "200px", maxHeight: "200px" }}
+                      />
+                      <br />
+                    </div>
+                  )}
+                  <button
+                    className="memodelete"
+                    onClick={() => handleDelete(memo.id, memo.imageUrl)}
+                  >
+                    メモを削除
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
