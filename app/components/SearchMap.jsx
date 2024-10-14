@@ -9,7 +9,7 @@ import {
 // Google Mapsのコンテナスタイル
 const containerStyle = {
   width: "100%",
-  height: "500px",
+  height: "750px",
 };
 
 // 初期のマップ中心（東京駅）
@@ -179,9 +179,9 @@ export const SearchMapComponent = () => {
           >
             <option value="すべて">すべて</option>
             <option value="無料">無料</option>
-            <option value="低価格">低価格</option>
-            <option value="中価格">中価格</option>
-            <option value="高価格">高価格</option>
+            <option value="低価格">低価格（1,000円未満）</option>
+            <option value="中価格">中価格（1,000～10,000円未満）</option>
+            <option value="高価格">高価格（10,000円以上）</option>
           </select>
         </div>
         <div>
@@ -230,7 +230,7 @@ export const SearchMapComponent = () => {
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={defaultCenter}
-            zoom={14}
+            zoom={12}
             onLoad={onLoad}
           >
             {/* フィルタリングされた場所にマーカーを表示 */}

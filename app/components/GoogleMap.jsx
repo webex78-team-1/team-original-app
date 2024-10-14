@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 
 // Google Mapsのコンテナスタイル
 const containerStyle = {
   width: "100%",
-  height: "500px",
+  height: "750px",
 };
 
 // 初期のマップ中心
@@ -16,6 +21,7 @@ const defaultCenter = {
 export const GoogleMapComponent = ({ spotNames }) => {
   const [map, setMap] = useState(null); // マップインスタンス
   const [markers, setMarkers] = useState([]); // マーカーの状態管理
+  const [selectedPlace, setSelectedPlace] = useState(null); // 選択された場所のインフォウィンドウ表示用
 
   // マップがロードされた時に呼び出される
   const onLoad = (mapInstance) => {
@@ -33,7 +39,7 @@ export const GoogleMapComponent = ({ spotNames }) => {
       return new Promise((resolve, reject) => {
         const request = {
           query: spotName,
-          fields: ["name", "geometry"],
+          fields: ["name", "geometry", "formatted_address", "place_id"],
         };
 
         // 各スポット名を検索して結果を処理
@@ -45,6 +51,8 @@ export const GoogleMapComponent = ({ spotNames }) => {
             const newMarkers = results.map((result) => ({
               position: result.geometry.location,
               name: result.name,
+              address: result.formatted_address,
+              placeId: result.place_id, // Google Mapsのリンクを生成するためにplace_idを保存
             }));
             resolve(newMarkers); // マーカー情報を返す
           } else {
@@ -71,6 +79,11 @@ export const GoogleMapComponent = ({ spotNames }) => {
       });
   }, [spotNames, map]);
 
+  // Google Mapsリンク生成
+  const generateGoogleMapsLink = (placeId) => {
+    return `https://www.google.com/maps/place/?q=place_id:${placeId}`;
+  };
+
   return (
     <>
       {/* Google Mapsの表示部分 */}
@@ -78,6 +91,7 @@ export const GoogleMapComponent = ({ spotNames }) => {
         googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
         libraries={["places"]}
       >
+        <h2>提案された結果に基づく関連スポット（Google Map）</h2>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={defaultCenter}
@@ -86,8 +100,32 @@ export const GoogleMapComponent = ({ spotNames }) => {
         >
           {/* 検索結果に基づいてマーカーを表示 */}
           {markers.map((marker, index) => (
-            <Marker key={index} position={marker.position} />
+            <Marker
+              key={index}
+              position={marker.position}
+              onClick={() => setSelectedPlace(marker)} // マーカークリック時に詳細表示
+            />
           ))}
+
+          {/* マーカーをクリックした時の詳細表示 */}
+          {selectedPlace && (
+            <InfoWindow
+              position={selectedPlace.position}
+              onCloseClick={() => setSelectedPlace(null)} // インフォウィンドウを閉じる
+            >
+              <div>
+                <h4>{selectedPlace.name}</h4>
+                <p>住所: {selectedPlace.address}</p>
+                <a
+                  href={generateGoogleMapsLink(selectedPlace.placeId)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Mapsで表示
+                </a>
+              </div>
+            </InfoWindow>
+          )}
         </GoogleMap>
       </LoadScript>
     </>
