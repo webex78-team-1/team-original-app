@@ -19,6 +19,7 @@ import { getStorage, ref, deleteObject } from "firebase/storage";
 import kotabi from "../images/kotabi.png";
 import sea from "../images/sea.png";
 import "../styles/style.css";
+import { Link } from "@remix-run/react";
 
 // export const meta = () => {
 //   return [
@@ -138,9 +139,21 @@ export default function Index() {
       ) : (
         <SignInButton />
       )} */}
+    
       <div className="header">
         <SignOutButton />
         <img src={kotabi} className="icon" alt="kotabi"></img>
+         <ul>
+        <li>
+          <Link to="/">マイページ</Link>
+        </li>
+        <li>
+          <Link to="/search">最適スポット検索</Link>
+        </li>
+        <li>
+          <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
+        </li>
+      </ul>
       </div>
       <h1
         style={{
@@ -151,7 +164,6 @@ export default function Index() {
       >
         KOTABi ~孤旅~
       </h1>
-
       <div className="mypagebackground">
         <div className="toumei">
           <h2>マイページ</h2>

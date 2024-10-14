@@ -2,7 +2,7 @@ import { useState } from "react";
 import Select from "react-select"; //セレクトボタンのインポート
 import "../styles/style.css";
 
-export const CustomAPICallComponent = () => {
+export const CustomAPICallComponent = ({ setApiResponse }) => {
   // 各入力フィールド用のステート
   const [location, setLocation] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null); // カテゴリ選択用のステート
@@ -58,6 +58,9 @@ export const CustomAPICallComponent = () => {
       const result = await response.json();
       setResponse(result); // レスポンスデータをステートに保存
       setErrorMessage(""); // エラーメッセージをクリア
+
+      // 取得したAPIレスポンスを親に渡す
+      setApiResponse(result); // 親のコールバック関数を呼び出して親にデータを渡す
     } catch (error) {
       console.error("エラーが発生しました: ", error);
       setErrorMessage("APIリクエストに失敗しました: " + error.message);
@@ -120,9 +123,8 @@ export const CustomAPICallComponent = () => {
             ))}
           </ul>
         ) : (
-          <p>データを取得中...</p>
+          <p>オススメスポットをここに表示します</p>
         )}
-
         {/* エラーメッセージの表示 */}
         {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
       </div>
