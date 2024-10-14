@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import { Link } from "@remix-run/react";
 
 // export const meta = () => {
 //   return [
@@ -137,6 +138,17 @@ export default function Index() {
       )} */}
       <SignOutButton />
       <h1>KOTABI ~孤旅~</h1>
+      <ul>
+        <li>
+          <Link to="/">マイページ</Link>
+        </li>
+        <li>
+          <Link to="/search">最適スポット検索</Link>
+        </li>
+        <li>
+          <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
+        </li>
+      </ul>
       <h2>マイページ</h2>
       <UserInfo />
 
