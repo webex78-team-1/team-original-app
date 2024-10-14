@@ -41,6 +41,70 @@
   justify-content: space-between;
 }
 
+.mypagebackground {
+  position: absolute;
+  background: url("../images/sea.png");
+  width: 100%;
+  margin: 0;
+}
+
+.toumei {
+  background-color: rgba(255, 255, 255, 0.562);
+}
+
+.memo {
+  margin: 20px 0 50px 40px;
+  padding: 5px 0 20px 20px;
+  width: 40%;
+  background-color: rgb(250, 100, 0);
+  font-family: meiryo;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 80px;
+  box-shadow: 12px 12px 2px 1px rgba(112, 37, 4, 0.2);
+}
+
+.memolabel {
+  margin-bottom: 10px;
+}
+
+.memokeep {
+  border-radius: 20px;
+  width: 6em;
+  height: 2em;
+  font-size: 17px;
+}
+
+.memokeepposition {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.memolog {
+  margin: 20px 40px 50px 40%;
+  padding: 5px 30px 20px 20px;
+  width: 50%;
+  background-color: white;
+  border: thick double #32a1ce;
+  border-color: rgb(0 220 180);
+  font-family: meiryo;
+  border-radius: 25px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 80px;
+  box-shadow: 12px 12px 2px 1px rgba(3, 111, 111, 0.2);
+}
+
+.memolist {
+  margin-bottom: 10px;
+}
+
+.memodelete {
+  border-radius: 20px;
+}
+
 .kensaku {
   margin: 20px 0 50px 40px;
   padding: 5px 0 20px 20px;
@@ -51,6 +115,27 @@
   border-top-right-radius: 80px;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 80px;
+}
+
+.kenskufont {
+  font-size: 20px;
+}
+
+.kensakuinput {
+  padding: 10px 10px 20px;
+  width: 60%;
+}
+
+.kensakubuttonposition {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.kensakubutton {
+  border-radius: 20px;
+  width: 5em;
+  height: 3em;
+  font-size: 20px;
 }
 
 .response {

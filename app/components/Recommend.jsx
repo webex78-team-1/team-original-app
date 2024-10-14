@@ -65,49 +65,67 @@ export const CustomAPICallComponent = () => {
   };
 
   return (
-    <div className="kensaku">
-      <h2>条件入力</h2>
-      <div>地域</div>
-      <input
-        type="text"
-        value={location}
-        onChange={(e) => {
-          setLocation(e.target.value);
-        }}
-      />
-      <div>カテゴリ</div>
-      <Select
-        options={category}
-        onChange={setSelectedCategory} // 選択された値をステートにセット
-      />
-      <div>屋内か屋外か</div>
-      <Select
-        options={inout}
-        onChange={setSelectedInout} // 選択された値をステートにセット
-      />
-      {/* ボタンを押してAPIリクエスト送信 */}
-      <button onClick={handleSubmit}>検索</button>
+    <div>
+      <div className="kensaku">
+        <h2>条件入力</h2>
+        <div className="kensakufont">
+          <div>地域</div>
+          <div className="kensakuinput">
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => {
+                setLocation(e.target.value);
+              }}
+            />
+          </div>
+          <div>カテゴリ</div>
+          <div className="kensakuinput">
+            <Select
+              options={category}
+              onChange={setSelectedCategory} // 選択された値をステートにセット
+            />
+          </div>
+          <div>屋内か屋外か</div>
+          <div className="kensakuinput">
+            <Select
+              options={inout}
+              onChange={setSelectedInout} // 選択された値をステートにセット
+            />
+          </div>
+          {/* ボタンを押してAPIリクエスト送信 */}
+          <div className="kensakubuttonposition">
+            <button className="kensakubutton" onClick={handleSubmit}>
+              検索
+            </button>
+          </div>
+        </div>
+      </div>
+      {/*画像挿入するかも*/}
 
-      {/* レスポンスの表示 */}
-      <h2>おすすめスポット一覧</h2>
-      {response ? (
-        <ul>
-          {response.information.map((item, index) => (
-            <li key={index}>
-              <strong>スポット名: </strong>
-              {item.spot}
-              <br />
-              <strong>理由: </strong>
-              {item.reason}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>データを取得中...</p>
-      )}
+      {/*画像挿入するかも */}
+      <div className="response">
+        {/* レスポンスの表示 */}
+        <h2>おすすめスポット一覧</h2>
+        {response ? (
+          <ul>
+            {response.information.map((item, index) => (
+              <li key={index}>
+                <strong>スポット名: </strong>
+                {item.spot}
+                <br />
+                <strong>理由: </strong>
+                {item.reason}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>データを取得中...</p>
+        )}
 
-      {/* エラーメッセージの表示 */}
-      {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+        {/* エラーメッセージの表示 */}
+        {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+      </div>
     </div>
   );
 };
