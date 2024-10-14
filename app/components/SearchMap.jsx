@@ -29,9 +29,9 @@ export const SearchMapComponent = () => {
   // フォーム入力の状態管理
   const [location, setLocation] = useState(""); // 地名
   const [category, setCategory] = useState(""); // カテゴリー
-  const [people, setPeople] = useState(""); // 人数（指定なしも可）
   const [budget, setBudget] = useState("すべて"); // 予算（無料、低価格、中価格、高価格、指定なし）
   const [inout, setInout] = useState(""); // 屋内・屋外（指定なしも可）
+  const [soloFriendly, setSoloFriendly] = useState(false); // 一人旅向けかどうか
 
   // ページ遷移後にマップを強制リロードする
   useEffect(() => {
@@ -59,7 +59,7 @@ export const SearchMapComponent = () => {
         "user_ratings_total",
         "formatted_address",
         "rating",
-        "types", // 屋内・屋外のフィルタに利用
+        "types", // 屋内・屋外、一人旅向けのフィルタに利用
       ], // 必要なフィールド
     };
 
@@ -76,13 +76,22 @@ export const SearchMapComponent = () => {
           if (budget === "中価格" && place.price_level !== 2) return false;
           if (budget === "高価格" && place.price_level !== 3) return false;
 
-          // 人数に応じたフィルタリング（例: 1人向けスポット）、指定しない場合はフィルタを無効
-          if (people === "1人" && place.user_ratings_total < 50) return false;
-
           // 屋内・屋外のフィルタリング
           if (inout === "屋内" && !place.types.includes("indoor")) return false;
           if (inout === "屋外" && !place.types.includes("outdoor"))
             return false;
+
+          // 一人旅向けのフィルタリング
+          if (
+            (soloFriendly && place.types.includes("amusement_park")) ||
+            place.types.includes("aquarium") ||
+            place.types.includes("bowling_alley") ||
+            place.types.includes("liquor_store") ||
+            place.types.includes("night_club") ||
+            place.types.includes("zoo")
+          ) {
+            return false; // 一人旅向けではない施設を除外
+          }
 
           return true;
         });
@@ -112,7 +121,7 @@ export const SearchMapComponent = () => {
         }
       }
     });
-  }, [location, category, people, budget, inout, map]);
+  }, [location, category, budget, inout, soloFriendly, map]);
 
   // 検索処理の実行
   const handleSearchSubmit = (e) => {
@@ -158,19 +167,6 @@ export const SearchMapComponent = () => {
           />
         </div>
         <div>
-          <label htmlFor="people">人数: </label>
-          <select
-            id="people"
-            value={people}
-            onChange={(e) => setPeople(e.target.value)}
-          >
-            <option value="">指定なし</option>
-            <option value="1人">1人</option>
-            <option value="家族">家族</option>
-            <option value="カップル">カップル</option>
-          </select>
-        </div>
-        <div>
           <label htmlFor="budget">予算: </label>
           <select
             id="budget"
@@ -195,6 +191,15 @@ export const SearchMapComponent = () => {
             <option value="屋内">屋内</option>
             <option value="屋外">屋外</option>
           </select>
+        </div>
+        <div>
+          <label htmlFor="soloFriendly">一人旅向け: </label>
+          <input
+            type="checkbox"
+            id="soloFriendly"
+            checked={soloFriendly}
+            onChange={(e) => setSoloFriendly(e.target.checked)}
+          />
         </div>
         <button type="submit">検索</button>
       </form>
