@@ -1,8 +1,5 @@
-// import { CustomAPICallComponent } from "../components/Recommend.jsx";
-// import { GoogleMapComponent } from "../components/GoogleMap.jsx";
 import { UserInfo, SignOutButton } from "../components/Sign.jsx";
 import { auth } from "../firebase.js";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "@remix-run/react";
 import MemoForm from "../components/MemoForm.jsx";
@@ -17,20 +14,19 @@ import {
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import kotabi from "../images/kotabi.png";
-import sea from "../images/sea.png";
+// import sea from "../images/sea.png";
 import "../styles/style.css";
 import { Link } from "@remix-run/react";
-
-// export const meta = () => {
-//   return [
-//     { title: "New Remix SPA" },
-//     { name: "description", content: "Welcome to Remix (SPA Mode)!" },
-//   ];
-// };
+//useAuthState関連
+// import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Index() {
   //ログイン状態を管理する変数の宣言
-  const [user] = useAuthState(auth);
+  //useAuthState関連
+  // const [user] = useAuthState(auth);
+  // ログイン状態を管理する変数の宣言
+  const [user, setUser] = useState(null); // useStateでユーザー情報を手動管理
+
   const navigate = useNavigate();
   const [memos, setMemos] = useState([]);
 
@@ -94,66 +90,51 @@ export default function Index() {
     setMemos(memos.filter((memo) => memo.id !== memoId)); // ローカルのメモリストから削除
   };
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/signin"); // ログインしていない場合はログイン画面へリダイレクト
-    }
-    if (user) {
-      fetchMemos(user.uid);
-    }
-  }, [user, navigate]);
+  // //useAuthState関連
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/signin"); // ログインしていない場合はログイン画面へリダイレクト
+  //   }
+  //   if (user) {
+  //     fetchMemos(user.uid);
+  //   }
+  // }, [user, navigate]);
 
+  // useAuthState関連を削除し、onAuthStateChangedでログイン状態を監視
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (!currentUser) {
+        navigate("/signin"); // ログインしていない場合はログイン画面へリダイレクト
+      } else {
+        setUser(currentUser); // ログインしているユーザー情報を設定
+        fetchMemos(currentUser.uid); // ログインしていればメモを取得
+      }
+    });
+
+    return () => unsubscribe(); // コンポーネントがアンマウントされたときにリスナーを解除
+  }, [navigate]);
+
+  //useAuthState関連
   if (!user) {
     return null; // ログイン状態が確定するまで何も表示しない
   }
 
   return (
-    // <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-    //   <h1>KOTABI ~孤旅~</h1>
-    //   <ul>
-    //     <li>
-    //       <a
-    //         target="_blank"
-    //         href="https://remix.run/guides/spa-mode"
-    //         rel="noreferrer"
-    //       >
-    //         SPA Mode Guide
-    //       </a>
-    //     </li>
-    //     <li>
-    //       <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-    //         Remix Docs
-    //       </a>
-    //     </li>
-    //   </ul>
-    //   <Sign />
-    // </div>
     <div>
-      {/* {user ? (
-        <div>
-          <UserInfo />
-          <SignOutButton />
-          <CustomAPICallComponent />
-          <GoogleMapComponent />
-        </div>
-      ) : (
-        <SignInButton />
-      )} */}
-    
       <div className="header">
         <SignOutButton />
         <img src={kotabi} className="icon" alt="kotabi"></img>
-         <ul>
-        <li>
-          <Link to="/">マイページ</Link>
-        </li>
-        <li>
-          <Link to="/search">最適スポット検索</Link>
-        </li>
-        <li>
-          <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
-        </li>
-      </ul>
+        <ul>
+          <li>
+            <Link to="/">マイページ</Link>
+          </li>
+          <li>
+            <Link to="/search">最適スポット検索</Link>
+          </li>
+          <li>
+            <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
+          </li>
+        </ul>
       </div>
       <h1
         style={{
@@ -170,6 +151,7 @@ export default function Index() {
           <UserInfo />
 
           {/* メモフォームの表示。メモ追加後に onMemoSave を呼び出す */}
+          {/* useAuthState関連 */}
           <MemoForm userId={user.uid} onMemoSave={handleMemoSave} />
 
           {/* 保存されたメモの表示 */}
