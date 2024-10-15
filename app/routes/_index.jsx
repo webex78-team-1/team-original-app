@@ -16,7 +16,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
-import sea from "../images/sea.png";
 import "../styles/style.css";
 import { Header } from "../components/Header.jsx";
 import { Footer } from "../components/Footer.jsx";
@@ -139,6 +138,7 @@ export default function Index() {
       ) : (
         <SignInButton />
       )} */}
+
       <Header />
       <h1
         style={{
@@ -159,38 +159,45 @@ export default function Index() {
 
           {/* 保存されたメモの表示 */}
 
-          <div className="memolog">
+          <div className="response">
             <h2>これまでのメモ</h2>
             <ul>
               {memos.map((memo) => (
                 <li key={memo.id}>
-                  <strong>日付: </strong>
-                  {memo.date}
-                  <br className="memolist" />
-                  <strong>場所: </strong>
-                  {memo.location}
-                  <br className="memolist" />
-                  <strong>メモ: </strong>
-                  {memo.content}
-                  <br className="memolist" />
-                  {memo.imageUrl && (
-                    <div className="memolist">
-                      <strong>写真: </strong>
-                      <br />
-                      <img
-                        src={memo.imageUrl}
-                        alt="メモの画像"
-                        style={{ maxWidth: "200px", maxHeight: "200px" }}
-                      />
-                      <br />
-                    </div>
-                  )}
-                  <button
-                    className="memodelete"
-                    onClick={() => handleDelete(memo.id, memo.imageUrl)}
-                  >
-                    メモを削除
-                  </button>
+                  <div className="memolog">
+                    <strong>日付: </strong>
+                    {memo.date}
+                  </div>
+                  <div className="memolog">
+                    <strong>場所: </strong>
+                    {memo.location}
+                  </div>
+                  <div className="memolog">
+                    <strong>メモ: </strong>
+                    {memo.content}
+                  </div>
+                  <div className="memolog">
+                    {memo.imageUrl && (
+                      <div>
+                        <strong>写真: </strong>
+                        <br />
+                        <img
+                          src={memo.imageUrl}
+                          alt="メモの画像"
+                          style={{ maxWidth: "200px", maxHeight: "200px" }}
+                        />
+                        <br />
+                      </div>
+                    )}
+                  </div>
+                  <div className="memodeleteposition">
+                    <button
+                      className="memodelete"
+                      onClick={() => handleDelete(memo.id, memo.imageUrl)}
+                    >
+                      メモを削除
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>

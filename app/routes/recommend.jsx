@@ -18,18 +18,24 @@ export default function RecommendGemini() {
           fontSize: "50px",
         }}
       >
-        KOTABi ~孤旅~
+        KOTABI ~孤旅~
       </h1>
-      <h2>Suggestion from AI</h2>
-      {/* CustomAPICallComponentにコールバックを渡す */}
-      <CustomAPICallComponent setApiResponse={setApiResponse} />
-      {/* マップを最初から表示 */}
-      <GoogleMapComponent
-        spotNames={
-          apiResponse ? apiResponse.information.map((item) => item.spot) : []
-        } // APIレスポンスがあればスポットを表示、なければ空の配列
-      />
-      <Footer />
+      <div className="geminibackground">
+        <div className="toumei">
+          <h2>Suggestion from AI</h2>
+          {/* CustomAPICallComponentにコールバックを渡す */}
+          <CustomAPICallComponent setApiResponse={setApiResponse} />
+          {/* マップを最初から表示 */}
+          <GoogleMapComponent
+            spotNames={
+              apiResponse
+                ? apiResponse.information.map((item) => item.spot)
+                : []
+            } // APIレスポンスがあればスポットを表示、なければ空の配列
+          />
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 }
