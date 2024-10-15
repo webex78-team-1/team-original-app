@@ -217,23 +217,25 @@ export const SearchMapComponent = () => {
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
       {/* リスト表示 */}
-      <h2>検索結果（評価の高い順）</h2>
-      <ul>
-        {placesList.map((place, index) => (
-          <li key={index}>
-            <strong>{place.name}</strong> <br />
-            住所: {place.formatted_address} <br />
-            評価: {place.rating} <br />
-            <a
-              href={generateGoogleMapsLink(place.place_id)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Google Mapsで表示
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div className="response">
+        <h2>検索結果（評価の高い順）</h2>
+        <ul>
+          {placesList.map((place, index) => (
+            <li key={index}>
+              <strong>{place.name}</strong> <br />
+              住所: {place.formatted_address} <br />
+              評価: {place.rating} <br />
+              <a
+                href={generateGoogleMapsLink(place.place_id)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Mapsで表示
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Google Mapsの表示部分 */}
       {loadMap && (
