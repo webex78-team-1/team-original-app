@@ -1,25 +1,12 @@
 import { SearchMapComponent } from "../components/SearchMap.jsx";
-import { Link } from "@remix-run/react";
-import kotabi from "../images/kotabi.png";
 import "../styles/style.css";
+import { Header } from "../components/Header.jsx";
+import { Footer } from "../components/Footer.jsx";
 
 export default function SearchMap() {
   return (
     <div>
-      <div className="header">
-        <img src={kotabi} className="icon" alt="kotabi"></img>
-        <ul>
-          <li>
-            <Link to="/">マイページ</Link>
-          </li>
-          <li>
-            <Link to="/search">最適スポット検索</Link>
-          </li>
-          <li>
-            <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
-          </li>
-        </ul>
-      </div>
+      <Header />
       <h1
         style={{
           borderBottom: "0.5rem solid",
@@ -31,8 +18,9 @@ export default function SearchMap() {
       </h1>
       <div className="googlebackground">
         <div className="toumei">
-          <h2>Googleマップを活用した最適スポット検索</h2>
+          <h2>Search on Google Map</h2>
           <SearchMapComponent />
+          <Footer />
         </div>
       </div>
     </div>

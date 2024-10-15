@@ -30,7 +30,6 @@ export const SearchMapComponent = () => {
   const [location, setLocation] = useState(""); // 地名
   const [category, setCategory] = useState(""); // カテゴリー
   const [budget, setBudget] = useState("すべて"); // 予算（無料、低価格、中価格、高価格、指定なし）
-  const [inout, setInout] = useState(""); // 屋内・屋外（指定なしも可）
   const [soloFriendly, setSoloFriendly] = useState(false); // 一人旅向けかどうか
 
   // ページ遷移後にマップを強制リロードする
@@ -59,7 +58,6 @@ export const SearchMapComponent = () => {
         "user_ratings_total",
         "formatted_address",
         "rating",
-        "types", // 屋内・屋外、一人旅向けのフィルタに利用
       ], // 必要なフィールド
     };
 
@@ -76,16 +74,15 @@ export const SearchMapComponent = () => {
           if (budget === "中価格" && place.price_level !== 2) return false;
           if (budget === "高価格" && place.price_level !== 3) return false;
 
-          // 屋内・屋外のフィルタリング
-          if (inout === "屋内" && !place.types.includes("indoor")) return false;
-          if (inout === "屋外" && !place.types.includes("outdoor"))
-            return false;
-
           // 一人旅向けのフィルタリング
           if (
             (soloFriendly && place.types.includes("amusement_park")) ||
+            place.types.includes("amusement_center") ||
             place.types.includes("aquarium") ||
+            place.types.includes("banquet_hall") ||
             place.types.includes("bowling_alley") ||
+            place.types.includes("community_center") ||
+            place.types.includes("convention_center") ||
             place.types.includes("liquor_store") ||
             place.types.includes("night_club") ||
             place.types.includes("zoo")
@@ -121,7 +118,7 @@ export const SearchMapComponent = () => {
         }
       }
     });
-  }, [location, category, budget, inout, soloFriendly, map]);
+  }, [location, category, budget, soloFriendly, map]);
 
   // 検索処理の実行
   const handleSearchSubmit = (e) => {
@@ -156,7 +153,7 @@ export const SearchMapComponent = () => {
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                placeholder="例: 東京駅"
+                placeholder="東京都, 札幌市, 大阪駅 etc."
               />
             </div>
           </div>
@@ -167,7 +164,7 @@ export const SearchMapComponent = () => {
               type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              placeholder="例: 和食、遊ぶ、温泉"
+              placeholder="名所, 温泉, ラーメン etc."
             />
           </div>
           <div className="inputposition">
@@ -182,18 +179,6 @@ export const SearchMapComponent = () => {
               <option value="低価格">低価格（1,000円未満）</option>
               <option value="中価格">中価格（1,000～10,000円未満）</option>
               <option value="高価格">高価格（10,000円以上）</option>
-            </select>
-          </div>
-          <div className="inputposition">
-            <label htmlFor="inout">屋内・屋外: </label>
-            <select
-              id="inout"
-              value={inout}
-              onChange={(e) => setInout(e.target.value)}
-            >
-              <option value="">指定なし</option>
-              <option value="屋内">屋内</option>
-              <option value="屋外">屋外</option>
             </select>
           </div>
           <div className="inputposition">

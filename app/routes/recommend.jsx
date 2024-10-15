@@ -1,8 +1,8 @@
 import { CustomAPICallComponent } from "../components/Recommend.jsx";
 import { GoogleMapComponent } from "../components/GoogleMap.jsx";
 import { useState } from "react";
-import { Link } from "@remix-run/react";
-import kotabi from "../images/kotabi.png";
+import { Header } from "../components/Header.jsx";
+import { Footer } from "../components/Footer.jsx";
 
 export default function RecommendGemini() {
   // APIの結果を保存するステート
@@ -10,20 +10,7 @@ export default function RecommendGemini() {
 
   return (
     <div>
-      <div className="header">
-        <img src={kotabi} className="icon" alt="kotabi"></img>
-        <ul>
-          <li>
-            <Link to="/">マイページ</Link>
-          </li>
-          <li>
-            <Link to="/search">最適スポット検索</Link>
-          </li>
-          <li>
-            <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
-          </li>
-        </ul>
-      </div>
+      <Header />
       <h1
         style={{
           borderBottom: "0.5rem solid",
@@ -35,7 +22,7 @@ export default function RecommendGemini() {
       </h1>
       <div className="geminibackground">
         <div className="toumei">
-          <h2>一人旅にオススメなスポットをAIに聞いてみる</h2>
+          <h2>Suggestion from AI</h2>
           {/* CustomAPICallComponentにコールバックを渡す */}
           <CustomAPICallComponent setApiResponse={setApiResponse} />
           {/* マップを最初から表示 */}
@@ -46,6 +33,7 @@ export default function RecommendGemini() {
                 : []
             } // APIレスポンスがあればスポットを表示、なければ空の配列
           />
+          <Footer />
         </div>
       </div>
     </div>
