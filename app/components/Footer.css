@@ -1,0 +1,16 @@
+.footer {
+  background-color: #5ce1e6;
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2.5rem 0; /* padding-topとpadding-bottomを均等にする */
+  display: flex;
+  justify-content: center; /* 水平方向に中央揃え */
+  align-items: center; /* 垂直方向に中央揃え */
+  flex-direction: column; /* テキストを縦に並べる */
+}
+
+.names {
+  display: inline-flex;
+  justify-content: center;
+  gap: 1rem;
+}

@@ -77,8 +77,12 @@ export const SearchMapComponent = () => {
           // 一人旅向けのフィルタリング
           if (
             (soloFriendly && place.types.includes("amusement_park")) ||
+            place.types.includes("amusement_center") ||
             place.types.includes("aquarium") ||
+            place.types.includes("banquet_hall") ||
             place.types.includes("bowling_alley") ||
+            place.types.includes("community_center") ||
+            place.types.includes("convention_center") ||
             place.types.includes("liquor_store") ||
             place.types.includes("night_club") ||
             place.types.includes("zoo")
@@ -140,7 +144,7 @@ export const SearchMapComponent = () => {
       {/* フィルタ入力フォーム */}
       <form onSubmit={handleSearchSubmit}>
         <div>
-          <label htmlFor="location">地名　　　　　: </label>
+          <label htmlFor="location">地名: </label>
           <input
             id="location"
             type="text"
@@ -150,7 +154,7 @@ export const SearchMapComponent = () => {
           />
         </div>
         <div>
-          <label htmlFor="category">カテゴリー　　: </label>
+          <label htmlFor="category">カテゴリー: </label>
           <input
             id="category"
             type="text"
@@ -174,7 +178,7 @@ export const SearchMapComponent = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="soloFriendly">一人旅向け　　: </label>
+          <label htmlFor="soloFriendly">一人旅向け: </label>
           <input
             type="checkbox"
             id="soloFriendly"
