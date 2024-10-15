@@ -69,11 +69,11 @@ export const CustomAPICallComponent = ({ setApiResponse }) => {
 
   return (
     <div>
-      <div className="kensaku">
+      <div className="input">
         <h2>条件入力</h2>
         <div className="kensakufont">
           <div>地域</div>
-          <div className="kensakuinput">
+          <div className="inputposition">
             <input
               type="text"
               value={location}
@@ -83,14 +83,14 @@ export const CustomAPICallComponent = ({ setApiResponse }) => {
             />
           </div>
           <div>カテゴリ</div>
-          <div className="kensakuinput">
+          <div className="inputposition">
             <Select
               options={category}
               onChange={setSelectedCategory} // 選択された値をステートにセット
             />
           </div>
           <div>屋内か屋外か</div>
-          <div className="kensakuinput">
+          <div className="inputposition">
             <Select
               options={inout}
               onChange={setSelectedInout} // 選択された値をステートにセット

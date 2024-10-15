@@ -60,9 +60,9 @@ export default function MemoForm({ userId, onMemoSave }) {
   };
 
   return (
-    <div className="memo">
+    <div className="input">
       <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
-        <div className="memolabel">
+        <div className="inputposition">
           <label>日付: </label>
           <input
             type="date"
@@ -71,7 +71,7 @@ export default function MemoForm({ userId, onMemoSave }) {
             required
           />
         </div>
-        <div className="memolabel">
+        <div className="inputposition">
           <label>訪れた場所: </label>
           <input
             type="text"
@@ -80,7 +80,7 @@ export default function MemoForm({ userId, onMemoSave }) {
             required
           />
         </div>
-        <div className="memolabel">
+        <div className="inputposition">
           <label>メモ内容: </label>
           <textarea
             value={content}
@@ -88,7 +88,7 @@ export default function MemoForm({ userId, onMemoSave }) {
             required
           />
         </div>
-        <div className="memolabel">
+        <div className="inputposition">
           <label>写真:</label>
           <input
             type="file"

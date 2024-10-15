@@ -1,4 +1,4 @@
-import { UserInfo, SignOutButton } from "../components/Sign.jsx";
+import { UserInfo } from "../components/Sign.jsx";
 import { auth } from "../firebase.js";
 import { useEffect, useState } from "react";
 import { useNavigate } from "@remix-run/react";
@@ -14,9 +14,9 @@ import {
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import kotabi from "../images/kotabi.png";
-// import sea from "../images/sea.png";
 import "../styles/style.css";
-import { Link } from "@remix-run/react";
+import { Header } from "../components/Header.jsx";
+import { Footer } from "../components/Footer.jsx";
 
 export default function Index() {
   // ログイン状態を管理する変数の宣言
@@ -105,21 +105,7 @@ export default function Index() {
 
   return (
     <div>
-      <div className="header">
-        <SignOutButton />
-        <img src={kotabi} className="icon" alt="kotabi"></img>
-        <ul>
-          <li>
-            <Link to="/">マイページ</Link>
-          </li>
-          <li>
-            <Link to="/search">最適スポット検索</Link>
-          </li>
-          <li>
-            <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
-          </li>
-        </ul>
-      </div>
+      <Header />
       <h1
         style={{
           borderBottom: "0.5rem solid",
@@ -127,11 +113,11 @@ export default function Index() {
           fontSize: "50px",
         }}
       >
-        KOTABi ~孤旅~
+        KOTABI ~孤旅~
       </h1>
       <div className="mypagebackground">
         <div className="toumei">
-          <h2>マイページ</h2>
+          <h2>My Page</h2>
           <UserInfo />
 
           {/* メモフォームの表示。メモ追加後に onMemoSave を呼び出す */}
@@ -175,6 +161,7 @@ export default function Index() {
               ))}
             </ul>
           </div>
+          <Footer />
         </div>
       </div>
     </div>

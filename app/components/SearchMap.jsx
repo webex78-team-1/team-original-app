@@ -30,7 +30,6 @@ export const SearchMapComponent = () => {
   const [location, setLocation] = useState(""); // 地名
   const [category, setCategory] = useState(""); // カテゴリー
   const [budget, setBudget] = useState("すべて"); // 予算（無料、低価格、中価格、高価格、指定なし）
-  const [inout, setInout] = useState(""); // 屋内・屋外（指定なしも可）
   const [soloFriendly, setSoloFriendly] = useState(false); // 一人旅向けかどうか
 
   // ページ遷移後にマップを強制リロードする
@@ -59,7 +58,6 @@ export const SearchMapComponent = () => {
         "user_ratings_total",
         "formatted_address",
         "rating",
-        "types", // 屋内・屋外、一人旅向けのフィルタに利用
       ], // 必要なフィールド
     };
 
@@ -76,16 +74,15 @@ export const SearchMapComponent = () => {
           if (budget === "中価格" && place.price_level !== 2) return false;
           if (budget === "高価格" && place.price_level !== 3) return false;
 
-          // 屋内・屋外のフィルタリング
-          if (inout === "屋内" && !place.types.includes("indoor")) return false;
-          if (inout === "屋外" && !place.types.includes("outdoor"))
-            return false;
-
           // 一人旅向けのフィルタリング
           if (
             (soloFriendly && place.types.includes("amusement_park")) ||
+            place.types.includes("amusement_center") ||
             place.types.includes("aquarium") ||
+            place.types.includes("banquet_hall") ||
             place.types.includes("bowling_alley") ||
+            place.types.includes("community_center") ||
+            place.types.includes("convention_center") ||
             place.types.includes("liquor_store") ||
             place.types.includes("night_club") ||
             place.types.includes("zoo")
@@ -121,7 +118,7 @@ export const SearchMapComponent = () => {
         }
       }
     });
-  }, [location, category, budget, inout, soloFriendly, map]);
+  }, [location, category, budget, soloFriendly, map]);
 
   // 検索処理の実行
   const handleSearchSubmit = (e) => {
@@ -146,85 +143,84 @@ export const SearchMapComponent = () => {
     <>
       {/* フィルタ入力フォーム */}
       <form onSubmit={handleSearchSubmit}>
-        <div>
-          <label htmlFor="location">地名: </label>
-          <input
-            id="location"
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="例: 東京駅"
-          />
+        <div className="input">
+          <div>
+            <h2>条件入力</h2>
+            <div className="inputposition">
+              <label htmlFor="location">地名: </label>
+              <input
+                id="location"
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="東京都, 札幌市, 大阪駅 etc."
+              />
+            </div>
+          </div>
+          <div className="inputposition">
+            <label htmlFor="category">カテゴリー: </label>
+            <input
+              id="category"
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              placeholder="名所, 温泉, ラーメン etc."
+            />
+          </div>
+          <div className="inputposition">
+            <label htmlFor="budget">予算: </label>
+            <select
+              id="budget"
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+            >
+              <option value="すべて">すべて</option>
+              <option value="無料">無料</option>
+              <option value="低価格">低価格（1,000円未満）</option>
+              <option value="中価格">中価格（1,000～10,000円未満）</option>
+              <option value="高価格">高価格（10,000円以上）</option>
+            </select>
+          </div>
+          <div className="inputposition">
+            <label htmlFor="soloFriendly">一人旅向け: </label>
+            <input
+              type="checkbox"
+              id="soloFriendly"
+              checked={soloFriendly}
+              onChange={(e) => setSoloFriendly(e.target.checked)}
+            />
+          </div>
+          <div className="kensakubuttonposition">
+            <button className="kensakubutton" type="submit">
+              検索
+            </button>
+          </div>
         </div>
-        <div>
-          <label htmlFor="category">カテゴリー: </label>
-          <input
-            id="category"
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="例: 和食、遊ぶ、温泉"
-          />
-        </div>
-        <div>
-          <label htmlFor="budget">予算: </label>
-          <select
-            id="budget"
-            value={budget}
-            onChange={(e) => setBudget(e.target.value)}
-          >
-            <option value="すべて">すべて</option>
-            <option value="無料">無料</option>
-            <option value="低価格">低価格（1,000円未満）</option>
-            <option value="中価格">中価格（1,000～10,000円未満）</option>
-            <option value="高価格">高価格（10,000円以上）</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="inout">屋内・屋外: </label>
-          <select
-            id="inout"
-            value={inout}
-            onChange={(e) => setInout(e.target.value)}
-          >
-            <option value="">指定なし</option>
-            <option value="屋内">屋内</option>
-            <option value="屋外">屋外</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="soloFriendly">一人旅向け: </label>
-          <input
-            type="checkbox"
-            id="soloFriendly"
-            checked={soloFriendly}
-            onChange={(e) => setSoloFriendly(e.target.checked)}
-          />
-        </div>
-        <button type="submit">検索</button>
       </form>
 
       {/* エラーメッセージ表示 */}
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
       {/* リスト表示 */}
-      <h2>検索結果（評価の高い順）</h2>
-      <ul>
-        {placesList.map((place, index) => (
-          <li key={index}>
-            <strong>{place.name}</strong> <br />
-            住所: {place.formatted_address} <br />
-            評価: {place.rating} <br />
-            <a
-              href={generateGoogleMapsLink(place.place_id)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Google Mapsで表示
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div className="response">
+        <h2>検索結果（評価の高い順）</h2>
+        <ul>
+          {placesList.map((place, index) => (
+            <li key={index}>
+              <strong>{place.name}</strong> <br />
+              住所: {place.formatted_address} <br />
+              評価: {place.rating} <br />
+              <a
+                href={generateGoogleMapsLink(place.place_id)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Google Mapsで表示
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Google Mapsの表示部分 */}
       {loadMap && (

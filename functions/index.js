@@ -43,10 +43,11 @@ async function runAI(location, category, inout) {
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction: `入力するのは現在地、希望カテゴリー、屋内か屋外かの３つの条件です。\n
-    該当する一人旅におすすめのスポット5つを"spot"に出力してください。\n
+    該当する一人旅におすすめのスポット10個を"spot"に出力してください。\n
     それぞれの提案理由を"reason"に出力してください。\n
     提案したスポットの緯度を"address"の"latitude"に出力してください。\n
-    提案してスポットの経度を"address"の"longtitude"に出力してください。`,
+    提案してスポットの経度を"address"の"longtitude"に出力してください。\n
+    ただし、遊園地やアミューズメントパークなどといった一人では行きづらいスポットは出力しないでください`,
   });
 
   const chatSession = model.startChat({
