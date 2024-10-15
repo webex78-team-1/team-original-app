@@ -17,15 +17,10 @@ import kotabi from "../images/kotabi.png";
 // import sea from "../images/sea.png";
 import "../styles/style.css";
 import { Link } from "@remix-run/react";
-//useAuthState関連
-// import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Index() {
-  //ログイン状態を管理する変数の宣言
-  //useAuthState関連
-  // const [user] = useAuthState(auth);
   // ログイン状態を管理する変数の宣言
-  const [user, setUser] = useState(null); // useStateでユーザー情報を手動管理
+  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
   const [memos, setMemos] = useState([]);
@@ -90,17 +85,7 @@ export default function Index() {
     setMemos(memos.filter((memo) => memo.id !== memoId)); // ローカルのメモリストから削除
   };
 
-  // //useAuthState関連
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/signin"); // ログインしていない場合はログイン画面へリダイレクト
-  //   }
-  //   if (user) {
-  //     fetchMemos(user.uid);
-  //   }
-  // }, [user, navigate]);
-
-  // useAuthState関連を削除し、onAuthStateChangedでログイン状態を監視
+  // onAuthStateChangedでログイン状態を管理
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (!currentUser) {
@@ -114,7 +99,6 @@ export default function Index() {
     return () => unsubscribe(); // コンポーネントがアンマウントされたときにリスナーを解除
   }, [navigate]);
 
-  //useAuthState関連
   if (!user) {
     return null; // ログイン状態が確定するまで何も表示しない
   }
@@ -151,7 +135,6 @@ export default function Index() {
           <UserInfo />
 
           {/* メモフォームの表示。メモ追加後に onMemoSave を呼び出す */}
-          {/* useAuthState関連 */}
           <MemoForm userId={user.uid} onMemoSave={handleMemoSave} />
 
           {/* 保存されたメモの表示 */}

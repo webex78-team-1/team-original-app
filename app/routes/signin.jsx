@@ -3,25 +3,13 @@ import { auth } from "../firebase.js";
 import { useNavigate } from "@remix-run/react";
 import "../styles/style.css";
 import kotabi from "../images/kotabi.png";
-//useAuthState関連
-// import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
 export default function SignIn() {
-  //useAuthState関連
-  //   const [user] = useAuthState(auth);
-  const [user, setUser] = useState(null); // userの状態をuseStateで管理
+  const [user, setUser] = useState(null); // ユーザーの状態をuseStateで管理
 
   const navigate = useNavigate();
-
-  //useAuthState関連
-  // ユーザーがログインしていればマイページにリダイレクト
-  //   useEffect(() => {
-  //     if (user) {
-  //       navigate("/"); // ログイン後はマイページにリダイレクト
-  //     }
-  //   }, [user, navigate]);
 
   // Firebaseの認証状態を監視してuserを設定する
   useEffect(() => {
