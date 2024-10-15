@@ -13,7 +13,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
-import kotabi from "../images/kotabi.png";
 import "../styles/style.css";
 import { Header } from "../components/Header.jsx";
 import { Footer } from "../components/Footer.jsx";

@@ -1,34 +1,34 @@
-const {onRequest} = require("firebase-functions/v2/https");
+const { onRequest } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
-const {GoogleGenerativeAI} = require("@google/generative-ai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 exports.generateRecommendedSpots = onRequest(
-    {region: "asia-northeast1", maxInstances: 1, cors: ["*"]},
-    async (request, response) => {
-      try {
-        if (request.method !== "POST") {
-          response.status(405).send("Method Not Allowed");
-          return;
-        }
-        /**
+  { region: "asia-northeast1", maxInstances: 1, cors: ["*"] },
+  async (request, response) => {
+    try {
+      if (request.method !== "POST") {
+        response.status(405).send("Method Not Allowed");
+        return;
+      }
+      /**
        * @type {{ location:string, category:string, inout:string }}
        */
-        const {location, category, inout} = request.body;
-        if (!location || !category || !inout) {
-          response.status(400).json({
-            error: "Bad Request",
-            reason: "Location, category and inout are required.",
-          });
-          return;
-        }
-        const result = await runAI(location, category, inout);
-        logger.log(result);
-        response.status(200).send(result);
-      } catch (error) {
-        logger.error(error);
-        response.status(500).send("Internal Server Error");
+      const { location, category, inout } = request.body;
+      if (!location || !category || !inout) {
+        response.status(400).json({
+          error: "Bad Request",
+          reason: "Location, category and inout are required.",
+        });
+        return;
       }
-    },
+      const result = await runAI(location, category, inout);
+      logger.log(result);
+      response.status(200).send(result);
+    } catch (error) {
+      logger.error(error);
+      response.status(500).send("Internal Server Error");
+    }
+  }
 );
 
 /**
