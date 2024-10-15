@@ -1,6 +1,6 @@
 // import { CustomAPICallComponent } from "../components/Recommend.jsx";
 // import { GoogleMapComponent } from "../components/GoogleMap.jsx";
-import { UserInfo, SignOutButton } from "../components/Sign.jsx";
+import { UserInfo } from "../components/Sign.jsx";
 import { auth } from "../firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
@@ -16,10 +16,10 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
-import kotabi from "../images/kotabi.png";
 import sea from "../images/sea.png";
 import "../styles/style.css";
-import { Link } from "@remix-run/react";
+import { Header } from "../components/Header.jsx";
+import { Footer } from "../components/Footer.jsx";
 
 // export const meta = () => {
 //   return [
@@ -139,22 +139,7 @@ export default function Index() {
       ) : (
         <SignInButton />
       )} */}
-    
-      <div className="header">
-        <SignOutButton />
-        <img src={kotabi} className="icon" alt="kotabi"></img>
-         <ul>
-        <li>
-          <Link to="/">マイページ</Link>
-        </li>
-        <li>
-          <Link to="/search">最適スポット検索</Link>
-        </li>
-        <li>
-          <Link to="/recommend">生成AI Geminiからのアドバイス</Link>
-        </li>
-      </ul>
-      </div>
+      <Header />
       <h1
         style={{
           borderBottom: "0.5rem solid",
@@ -166,7 +151,7 @@ export default function Index() {
       </h1>
       <div className="mypagebackground">
         <div className="toumei">
-          <h2>マイページ</h2>
+          <h2>My Page</h2>
           <UserInfo />
 
           {/* メモフォームの表示。メモ追加後に onMemoSave を呼び出す */}
@@ -210,6 +195,7 @@ export default function Index() {
               ))}
             </ul>
           </div>
+          <Footer />
         </div>
       </div>
     </div>
