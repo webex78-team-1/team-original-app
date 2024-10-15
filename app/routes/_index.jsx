@@ -1,8 +1,5 @@
-// import { CustomAPICallComponent } from "../components/Recommend.jsx";
-// import { GoogleMapComponent } from "../components/GoogleMap.jsx";
 import { UserInfo } from "../components/Sign.jsx";
 import { auth } from "../firebase.js";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "@remix-run/react";
 import MemoForm from "../components/MemoForm.jsx";
@@ -16,20 +13,15 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import kotabi from "../images/kotabi.png";
 import "../styles/style.css";
 import { Header } from "../components/Header.jsx";
 import { Footer } from "../components/Footer.jsx";
 
-// export const meta = () => {
-//   return [
-//     { title: "New Remix SPA" },
-//     { name: "description", content: "Welcome to Remix (SPA Mode)!" },
-//   ];
-// };
-
 export default function Index() {
-  //ログイン状態を管理する変数の宣言
-  const [user] = useAuthState(auth);
+  // ログイン状態を管理する変数の宣言
+  const [user, setUser] = useState(null);
+
   const navigate = useNavigate();
   const [memos, setMemos] = useState([]);
 
@@ -93,52 +85,26 @@ export default function Index() {
     setMemos(memos.filter((memo) => memo.id !== memoId)); // ローカルのメモリストから削除
   };
 
+  // onAuthStateChangedでログイン状態を管理
   useEffect(() => {
-    if (!user) {
-      navigate("/signin"); // ログインしていない場合はログイン画面へリダイレクト
-    }
-    if (user) {
-      fetchMemos(user.uid);
-    }
-  }, [user, navigate]);
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (!currentUser) {
+        navigate("/signin"); // ログインしていない場合はログイン画面へリダイレクト
+      } else {
+        setUser(currentUser); // ログインしているユーザー情報を設定
+        fetchMemos(currentUser.uid); // ログインしていればメモを取得
+      }
+    });
+
+    return () => unsubscribe(); // コンポーネントがアンマウントされたときにリスナーを解除
+  }, [navigate]);
 
   if (!user) {
     return null; // ログイン状態が確定するまで何も表示しない
   }
 
   return (
-    // <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-    //   <h1>KOTABI ~孤旅~</h1>
-    //   <ul>
-    //     <li>
-    //       <a
-    //         target="_blank"
-    //         href="https://remix.run/guides/spa-mode"
-    //         rel="noreferrer"
-    //       >
-    //         SPA Mode Guide
-    //       </a>
-    //     </li>
-    //     <li>
-    //       <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-    //         Remix Docs
-    //       </a>
-    //     </li>
-    //   </ul>
-    //   <Sign />
-    // </div>
     <div>
-      {/* {user ? (
-        <div>
-          <UserInfo />
-          <SignOutButton />
-          <CustomAPICallComponent />
-          <GoogleMapComponent />
-        </div>
-      ) : (
-        <SignInButton />
-      )} */}
-
       <Header />
       <h1
         style={{
@@ -147,7 +113,7 @@ export default function Index() {
           fontSize: "50px",
         }}
       >
-        KOTABi ~孤旅~
+        KOTABI ~孤旅~
       </h1>
       <div className="mypagebackground">
         <div className="toumei">
@@ -159,45 +125,38 @@ export default function Index() {
 
           {/* 保存されたメモの表示 */}
 
-          <div className="response">
+          <div className="memolog">
             <h2>これまでのメモ</h2>
             <ul>
               {memos.map((memo) => (
                 <li key={memo.id}>
-                  <div className="memolog">
-                    <strong>日付: </strong>
-                    {memo.date}
-                  </div>
-                  <div className="memolog">
-                    <strong>場所: </strong>
-                    {memo.location}
-                  </div>
-                  <div className="memolog">
-                    <strong>メモ: </strong>
-                    {memo.content}
-                  </div>
-                  <div className="memolog">
-                    {memo.imageUrl && (
-                      <div>
-                        <strong>写真: </strong>
-                        <br />
-                        <img
-                          src={memo.imageUrl}
-                          alt="メモの画像"
-                          style={{ maxWidth: "200px", maxHeight: "200px" }}
-                        />
-                        <br />
-                      </div>
-                    )}
-                  </div>
-                  <div className="memodeleteposition">
-                    <button
-                      className="memodelete"
-                      onClick={() => handleDelete(memo.id, memo.imageUrl)}
-                    >
-                      メモを削除
-                    </button>
-                  </div>
+                  <strong>日付: </strong>
+                  {memo.date}
+                  <br className="memolist" />
+                  <strong>場所: </strong>
+                  {memo.location}
+                  <br className="memolist" />
+                  <strong>メモ: </strong>
+                  {memo.content}
+                  <br className="memolist" />
+                  {memo.imageUrl && (
+                    <div className="memolist">
+                      <strong>写真: </strong>
+                      <br />
+                      <img
+                        src={memo.imageUrl}
+                        alt="メモの画像"
+                        style={{ maxWidth: "200px", maxHeight: "200px" }}
+                      />
+                      <br />
+                    </div>
+                  )}
+                  <button
+                    className="memodelete"
+                    onClick={() => handleDelete(memo.id, memo.imageUrl)}
+                  >
+                    メモを削除
+                  </button>
                 </li>
               ))}
             </ul>
