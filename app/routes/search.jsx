@@ -44,6 +44,8 @@ export default function SearchMap() {
       <div className="googlebackground">
         <div className="toumei">
           <h2>Search on Google Map</h2>
+          <h4>Google Mapで一人旅に最適な行先を検索しましょう</h4>
+          <h4>条件を自由に入力してください</h4>
           <SearchMapComponent />
           <Footer />
         </div>

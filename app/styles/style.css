@@ -3,6 +3,11 @@
   border-radius: 20px;
   width: 12em;
   height: 3em;
+  cursor: pointer;
+}
+
+.signinbutton:hover {
+  background-color: rgb(200, 200, 200);
 }
 
 .signinscreen {
@@ -20,6 +25,11 @@
   width: 10em;
   height: 3em;
   margin: auto 0 auto 0;
+  cursor: pointer;
+}
+
+.signoutbutton:hover {
+  background-color: rgb(200, 200, 200);
 }
 
 .userinfo {
@@ -70,6 +80,11 @@
   width: 6em;
   height: 2em;
   font-size: 17px;
+  cursor: pointer;
+}
+
+.memokeep:hover {
+  background-color: rgb(200, 200, 200);
 }
 
 .memokeepposition {
@@ -99,6 +114,11 @@
 
 .memodelete {
   border-radius: 20px;
+  cursor: pointer;
+}
+
+.memodelete:hover {
+  background-color: rgb(200, 200, 200);
 }
 
 .memodeleteposition {
@@ -138,4 +158,9 @@
   width: 5em;
   height: 3em;
   font-size: 20px;
+  cursor: pointer;
+}
+
+.kensakubutton:hover {
+  background-color: rgb(200, 200, 200);
 }

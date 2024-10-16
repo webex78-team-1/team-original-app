@@ -117,6 +117,7 @@ export default function Index() {
       <div className="mypagebackground">
         <div className="toumei">
           <h2>My Page</h2>
+          <h4>あなたの旅を記録しましょう</h4>
           <UserInfo />
 
           {/* メモフォームの表示。メモ追加後に onMemoSave を呼び出す */}
@@ -152,7 +153,7 @@ export default function Index() {
                         <img
                           src={memo.imageUrl}
                           alt="メモの画像"
-                          style={{ maxWidth: "200px", maxHeight: "200px" }}
+                          style={{ maxWidth: "500px", maxHeight: "500px" }}
                         />
                         <br />
                       </div>
