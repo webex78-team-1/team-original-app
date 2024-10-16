@@ -146,8 +146,8 @@ export const SearchMapComponent = () => {
         <div className="input">
           <div>
             <h2>条件入力</h2>
+            <label htmlFor="location">地名</label>
             <div className="inputposition">
-              <label htmlFor="location">地名: </label>
               <input
                 id="location"
                 type="text"
@@ -157,8 +157,8 @@ export const SearchMapComponent = () => {
               />
             </div>
           </div>
+          <label htmlFor="category">カテゴリー</label>
           <div className="inputposition">
-            <label htmlFor="category">カテゴリー: </label>
             <input
               id="category"
               type="text"
@@ -167,8 +167,8 @@ export const SearchMapComponent = () => {
               placeholder="名所, 温泉, ラーメン etc."
             />
           </div>
+          <label htmlFor="budget">予算</label>
           <div className="inputposition">
-            <label htmlFor="budget">予算: </label>
             <select
               id="budget"
               value={budget}
@@ -182,7 +182,7 @@ export const SearchMapComponent = () => {
             </select>
           </div>
           <div className="inputposition">
-            <label htmlFor="soloFriendly">一人旅向け: </label>
+            <label htmlFor="soloFriendly">一人旅向け</label>
             <input
               type="checkbox"
               id="soloFriendly"
@@ -225,7 +225,7 @@ export const SearchMapComponent = () => {
       {/* Google Mapsの表示部分 */}
       {loadMap && (
         <LoadScript
-          googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+          googleMapsApiKey={"AIzaSyArF6jbeP8QOnzJtWWYzc-nVIJVPMebuyw"}
           libraries={["places"]}
         >
           <GoogleMap

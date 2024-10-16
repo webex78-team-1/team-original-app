@@ -47,6 +47,8 @@ export default function RecommendGemini() {
       <div className="geminibackground">
         <div className="toumei">
           <h2>Suggestion from AI</h2>
+          <h4>AIに一人旅に最適な行先を提案してもらいましょう</h4>
+          <h4>条件を自由に入力してください</h4>
           {/* CustomAPICallComponentにコールバックを渡す */}
           <CustomAPICallComponent setApiResponse={setApiResponse} />
           {/* マップを最初から表示 */}

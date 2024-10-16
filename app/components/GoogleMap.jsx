@@ -88,7 +88,7 @@ export const GoogleMapComponent = ({ spotNames }) => {
     <>
       {/* Google Mapsの表示部分 */}
       <LoadScript
-        googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}
+        googleMapsApiKey={"AIzaSyArF6jbeP8QOnzJtWWYzc-nVIJVPMebuyw"}
         libraries={["places"]}
       >
         <h2>提案された結果に基づく関連スポット（Google Map）</h2>
